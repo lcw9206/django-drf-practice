@@ -23,7 +23,7 @@
 
 ## 프로젝트 생성
 ```
->>>django-admin.py startproject tutorial
+>>> django-admin.py startproject tutorial
 ```
 
 
@@ -107,7 +107,9 @@ class SnippetSerializer(serializers.Serializer):
 
 ## 직접 만든 Serializer 이용해보기
 * 먼저 shell에 접속한다.
-```>>> python manage.py shell```
+```
+>>> python manage.py shell
+```
 
 * 필요한 모듈을 import 하고, 인스턴스를 생성한다.
 ```
@@ -172,9 +174,10 @@ shell
 >>> print(repr(serializer))
 ```
 * But! ModelSerializer는 Serializer 클래스의 축소 버전임을 기억하자.
+```
 1. 선언된 필드를 자동으로 읽어온다.
 2. create, update 메서드가 구현되어 있다.
-
+```
 
 ## Serializer 클래스를 이용하는 view 만들기
 * view를 수정하고, urls에 sinnpets를 등록하자.
