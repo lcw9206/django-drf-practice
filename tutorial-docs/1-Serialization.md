@@ -7,28 +7,30 @@
 
 ## 가상환경 생성
 ```
-virtualenv env
-source env/bin/activate
+>>> virtualenv env
+>>> source env/bin/activate
 ```
 
 
 ## 환경세팅
 * pygments : 파이썬 기반 문법 하이라이터
 ```
-pip install django
-pip install djangorestframework
-pip install pygments  
+>>> pip install django
+>>> pip install djangorestframework
+>>> pip install pygments  
 ```
 
 
 ## 프로젝트 생성
-`django-admin.py startproject tutorial`
+```
+>>>django-admin.py startproject tutorial
+```
 
 
 ## 앱 생성
 ```
-cd tutorial
-python manage.py startapp snippets
+>>> cd tutorial
+>>> python manage.py startapp snippets
 ```
 
 
@@ -61,8 +63,8 @@ class Snippet(models.Model):
 
 ## migration & migrate
 ```
-python manage.py makemigrations snippets
-python manage.py migrate
+>>> python manage.py makemigrations snippets
+>>> python manage.py migrate
 ```
 
 
@@ -105,7 +107,7 @@ class SnippetSerializer(serializers.Serializer):
 
 ## 직접 만든 Serializer 이용해보기
 * 먼저 shell에 접속한다.
-`python manage.py shell`
+```>>> python manage.py shell```
 
 * 필요한 모듈을 import 하고, 인스턴스를 생성한다.
 ```
@@ -123,22 +125,22 @@ snippet.save()
 
 * 생성된 인스턴스를 파이썬 데이터 타입으로 변환한다.
 ```
-serializer = SnippetSerializer(snippet)
-serializer.data
+>>> serializer = SnippetSerializer(snippet)
+>>> serializer.data
 {'id': 2, 'title': u'', 'code': u'print "hello, world"\n', 'linenos': False, 'language': u'python', 'style': u'friendly'}
 ```
 
 * 변환된 파이썬 데이터 타입의 인스턴스를 json 타입으로 변환하는 것으로 직렬화를 마무리한다.
 ```
-content = JSONRenderer().render(serializer.data)
-content
+>>> content = JSONRenderer().render(serializer.data)
+>>> content
 '{"id": 2, "title": "", "code": "print \\"hello, world\\"\\n", "linenos": false, "language": "python", "style": "friendly"}'
 ```
 
 * 모델 인스턴스가 아닌 쿼리셋을 직렬화하는 방법은 serializer 인수에 many = True 플래그를 추가하면 된다.
 ```
-serializer = SnippetSerializer(Snippet.objects.all(), many=True)
-serializer.data
+>>> serializer = SnippetSerializer(Snippet.objects.all(), many=True)
+>>> serializer.data
 [OrderedDict([('id', 1), ('title', u''), ('code', u'foo = "bar"\n'), ('linenos', False), ('language', 'python'), 
 ('style', 'friendly')]), OrderedDict([('id', 2), ('title', u''), ('code', u'print "hello, world"\n'), 
 ('linenos', False), ('language', 'python'), ('style', 'friendly')]), OrderedDict([('id', 3), ('title', u''), 
@@ -278,11 +280,11 @@ Quit the server with CONTROL-C.
 
 * 이제 서버를 가동한 터미널이 아닌 다른 터미널 창에서 테스트를 해보자. curl 혹은 httpie를 이용할 수 있다.
 * 지금은 파이썬으로 작성된 httpie를 이용하기 위해 설치하자.
-`pip install httpie`
+```>>> pip install httpie````
 
 * 아래의 명령어를 이용해 전체 데이터를 조회할 수 있다.
 ```
-http http://127.0.0.1:8000/snippets/
+>>> http http://127.0.0.1:8000/snippets/
 HTTP/1.1 200 OK
 ...
 [
@@ -306,7 +308,7 @@ HTTP/1.1 200 OK
 ```
 *혹은 아래의 명령어를 이용해 개별 데이터를 조회할 수 있다.
 ```
-http http://127.0.0.1:8000/snippets/2/
+>>> http http://127.0.0.1:8000/snippets/2/
 HTTP/1.1 200 OK
 ...
 {
