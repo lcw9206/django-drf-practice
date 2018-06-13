@@ -10,7 +10,7 @@
 
 ## Rewriting our API using class-based views
 
-* CBV를 기반으로 최상단 View를 재작성 해보자.
+* CBV를 기반으로 최상단 View를 재작성해보자.
 ```
 # snippets/ views.py
 
@@ -146,7 +146,7 @@ class SnippetDetail(mixins.RetrieveModelMixin,
 ## Using generic CBV
 
 * 이미 믹스인 클래스를 이용해 view의 코드를 많이 줄였지만, 더 줄일 수 있다.
-* REST 프레임워크는 믹스인 클래스와 연결된 Generic view를 제공하며, 이 것을 사용하면 코드를 줄일 수 있다.
+* REST 프레임워크는 믹스인 클래스와 연결된 Generic view를 제공하며, 이것을 사용하면 코드를 줄일 수 있다.
 ```
 # snippets/ views.py
 
