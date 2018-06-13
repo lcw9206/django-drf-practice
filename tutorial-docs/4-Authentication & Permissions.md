@@ -8,7 +8,7 @@
 
 
 
-## 우리가 만든 API에서는 누구나 데이터를 편집하거나, 삭제하는데 있어 아무 제한이 없다.
+## 우리가 만든 API에서는 누구나 데이터를 편집하거나, 삭제하는 데 있어 아무 제한이 없다.
 
 * 다음과 같은 사항을 확실히 하기 위해 더 나은 기능들을 추가해보자.
 ```
@@ -21,15 +21,15 @@
 
 ## Adding information to our model
 * Snippet 모델을 수정하자. 먼저 두 개의 필드를 추가한다.
-* 이 필드 중 하나(owner)는 데이터를 만든 사용자를 만든 사람을 나타내는데 표현한다.
-* 다른 필드는 HTML의 하이라이트 부분을 저장하는데 사용한다.
+* 이 필드 중 하나(owner)는 데이터를 만든 사용자를 나타내는 데 사용된다.
+* 다른 필드는 HTML의 하이라이트 부분을 저장하는 데 사용한다.
 ```
 # snippets/ models.py
 
 owner = models.ForeignKey('auth.User', related_name='snippets', on_delete=models.CASCADE)
 highlighted = models.TextField()
 ```
-* 또한 모델 저장 시, 하이라이트 부분의 코드를 pygments 라이브러리를 이용해 하이라이트 필드에 저장되도록 해야한다.
+* 또한 모델 저장 시, 하이라이트 부분의 코드를 pygments 라이브러리를 이용해 하이라이트 필드에 저장되도록 해야 한다.
 * 다음 라이브러리들을 Import하자.
 ```
 # snippets/ models.py
@@ -56,7 +56,7 @@ def save(self, *args, **kwargs):
     super(Snippet, self).save(*args, **kwargs)
 ```
 
-* 위의 작업이 완료되면, 데이터베이스를 업데이트 하자.
+* 위의 작업이 완료되면, 데이터베이스를 업데이트하자.
 * 일반적으로 업데이트 시, migration을 이용하지만, 이번 튜토리얼에서는 데이터베이스를 삭제하고 다시 시작해보자.
 ```
 # terminal
@@ -66,7 +66,7 @@ def save(self, *args, **kwargs):
 >>> python manage.py makemigrations snippets
 >>> python manage.py migrate
 ```
-* API 테스르를 위해 몇 명의 사용자를 생성할 수 있다. 가장 빠른 방법은 createsuperuser를 이용하는 것이다.
+* API 테스트를 위해 몇 명의 사용자를 생성할 수 있다. 가장 빠른 방법은 createsuperuser를 이용하는 것이다.
 ```
 # terminal
 
@@ -89,7 +89,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'snippets')
 ```
-* snippets는 User 모델과 역방항 관계이기 때문에, Modelserializer 클래스를 이용할 때 기본적으로 포함되어 있지 않다.
+* snippets는 User 모델과 역방향 관계이기 때문에, Modelserializer 클래스를 이용할 때 기본적으로 포함되어 있지 않다.
 * 그래서 명시적으로 필드를 지정했다.
 * 우리는 사용자와 관련된 읽기 전용 view만 사용하면 되므로, 제네릭 클래스 기반 뷰 중, ListAPIView 및 RetrieveAPIView를 사용한다.
 ```
@@ -107,7 +107,7 @@ class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 ```
-* 마지막으로 이러한 view들을 URL conf에서 참조해 API에 추가해야한다.
+* 마지막으로 이러한 view들을 URL conf에서 참조해 API에 추가해야 한다.
 ```
 # snippets/ urls.py
 
@@ -143,9 +143,9 @@ owner = serializers.ReadOnlyField(source='owner.username')
 
 
 ## Adding required permissions to views
-* 이제 사용자와 데이터가 연결 되었으므로, 인증받은 사용자만이 데이터를 생성/ 업데이트/ 삭제할 수 있다.
-* REST 프레임워크에는 주어진 view에 접근할 수 있는 사용자를 제한하는데 사용할 수 있는 많은 클래스를 제공한다.
-* IsAuthenticatedOrReadOnly는 인증 된 요청에 읽기 - 쓰기 권한이 부여되고 인증되지 않은 요청에는 읽기 전용 권한이 부여됩니다.
+* 이제 사용자와 데이터가 연결되었으므로, 인증받은 사용자만이 데이터를 생성/ 업데이트/ 삭제할 수 있다.
+* REST 프레임워크에는 주어진 view에 접근할 수 있는 사용자를 제한하는 데 사용할 수 있는 많은 클래스를 제공한다.
+* IsAuthenticatedOrReadOnly는 인증된 요청에 읽기 - 쓰기 권한이 부여되고 인증되지 않은 요청에는 읽기 전용 권한이 부여된다.
 * views.py에 다음 내용을 추가한다.
 ```
 # snippets/ views.py
@@ -214,10 +214,10 @@ from snippets.permissions import IsOwnerOrReadOnly
 
 
 ## Authenticating with the API
-* API에 대한 권한 설정을 했으므로, 데이터를 편집하려면 인증 절차가 필요하다.
-* 우리는 어떤 인증 클래스도 만들지 않았기때문에, 기본값인 SessionAuthentication과 BasicAuthentication이 적용된다.
+* API에 대해 권한 설정을 했으므로, 데이터를 편집하려면 인증 절차가 필요하다.
+* 우리는 어떤 인증 클래스도 만들지 않았기 때문에, 기본값인 SessionAuthentication과 BasicAuthentication이 적용된다.
 * 웹 브라우저로 API를 사용할 때, 로그인할 수 있으며, 브라우저 세션은 인증 정보를 제공한다.
-* 프로그램 상에서 API를 사용할 때, 인증 정보를 명시적으로 제공해야 한다.
+* 프로그램상에서 API를 사용할 때, 인증 정보를 명시적으로 제공해야 한다.
 * 인증 없이 데이터를 생성하려고 하면, 다음과 같은 에러를 보인다.
 ```
 # terminal
