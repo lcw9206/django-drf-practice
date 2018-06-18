@@ -10,3 +10,4 @@
 3. [Class-based Views](https://github.com/lcw9206/django-drf-practice/blob/master/tutorial-docs/3-Class-based%20Views.md)
 4. [Authentication & Permissions](https://github.com/lcw9206/django-drf-practice/blob/master/tutorial-docs/4-Authentication%20%26%20Permissions.md)
 5. [Relationships & Hyperlinked APIs](https://github.com/lcw9206/django-drf-practice/blob/master/tutorial-docs/5-Relationships%20%26%20Hyperlinked%20APIs.md)
+6. [Viewsets and routers](https://github.com/lcw9206/django-drf-practice/blob/master/tutorial-docs/6-Viewsets%20and%20routers.md)
