@@ -57,6 +57,18 @@ class Snippet(models.Model):
     class Meta:
         ordering = ('created',)
 ```
+* 데이터베이스를 생성하기 전, tutorial/ urls.py에 앞서 만든 snippets 앱을 연결한 후, snippets/ urls.py를 생성한다.
+```
+# tutorial/ urls.py
+
+from django.conf.urls import include
+
+
+urlpatterns = [
+    url(r'^', include('snippets.urls')),
+]
+```
+
 * 데이터베이스를 생성한다.
 ```
 # terminal
